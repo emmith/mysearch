@@ -20,16 +20,16 @@
 在Spiders/bili下执行  
 ```scrapy crawl video_bili```  
 在Spiders/dytt下执行   
-```scrapy crawl video_dytt10```    
+```scrapy crawl video_dytt```    
 dytt需要很多时间，建议爬取几百条强制结束
 
 然后运行django项目
 
 
-**如需采用更多搜索源，更改```views.py```文件中["video_bili","video_dytt"]列表即可，注意新的数据源必须和原来的数据源的字段名一致**
+**如需采用更多搜索源，更改```views.py```文件中index的["video_bili","video_dytt"]列表即可，注意新的数据源必须和原来的数据源的字段名一致**
 
 ## 结果展示
-结果所使用的数据源为dytt
+结果所使用的数据源为dytt，即```views.py```文件中index为["video_dytt"]列表
 ### 首页
 ![](https://res.cloudinary.com/emmith/image/upload/v1623244073/marldown/%E9%A6%96%E9%A1%B5_l4qoi3.png)
 
