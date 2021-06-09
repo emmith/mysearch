@@ -84,7 +84,7 @@ class SearchSuggest(View):
 
             #TODO:match的方法
             response = client.search(
-                index="video_bili",
+                index=['video_dytt10','video_bili'],
                     body={
                         "_source":"video_title",
                         "query": {
@@ -127,7 +127,7 @@ class SearchView(View):
         start_time = datetime.now()
         # 根据关键字查找
         response = client.search(
-            index='video_bili',
+            index=['video_dytt10','video_bili'],
             body={
                 "query": {
                     "multi_match": {
