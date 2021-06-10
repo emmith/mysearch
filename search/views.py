@@ -11,7 +11,6 @@ from elasticsearch_dsl import Search
 from datetime import datetime
 import redis
 
-
 client = Elasticsearch(hosts=["127.0.0.1"])
 redis_cli = redis.StrictRedis()
 
@@ -20,13 +19,13 @@ response = client.search(
     body={
     }
 )
-redis_cli.set("count_bili",response['hits']['total']['value'])
+redis_cli.set("count_bili", response['hits']['total']['value'])
 response = client.search(
-    index="video_dytt",
+    index="video_dytt10",
     body={
     }
 )
-redis_cli.set("count_dytt",response['hits']['total']['value'])
+redis_cli.set("count_dytt", response['hits']['total']['value'])
 
 
 class IndexView(View):
@@ -41,7 +40,7 @@ class IndexView(View):
 # Create your views here.
 class SearchSuggest(View):
     def get(self, request):
-        key_words = request.GET.get('s', '')# 获取url中参数s的值
+        key_words = request.GET.get('s', '')  # 获取url中参数s的值
         re_datas = []
 
         if key_words:
@@ -82,23 +81,22 @@ class SearchSuggest(View):
             #     source = match._source
             #     re_datas.append(source["video_title"])
 
-            #TODO:match的方法
+            # TODO:match的方法
             response = client.search(
-                index=['video_dytt10','video_bili'],
-                    body={
-                        "_source":"video_title",
-                        "query": {
-                            "multi_match": {
-                                "query": key_words,
-                                "fields": ["video_title", "label"]
-                            }
-                        },
-                        "size": 5
-                    }
+                index=['video_dytt10', 'video_bili'],
+                body={
+                    "_source": "video_title",
+                    "query": {
+                        "multi_match": {
+                            "query": key_words,
+                            "fields": ["video_title", "label"]
+                        }
+                    },
+                    "size": 5
+                }
             )
             for hit in response["hits"]["hits"]:
                 re_datas.append(hit["_source"]["video_title"])
-
 
         return HttpResponse(json.dumps(re_datas), content_type="application/json")
 
@@ -127,12 +125,12 @@ class SearchView(View):
         start_time = datetime.now()
         # 根据关键字查找
         response = client.search(
-            index=['video_dytt10','video_bili'],
+            index=['video_dytt10', 'video_bili'],
             body={
                 "query": {
                     "multi_match": {
                         "query": key_words,
-                        "fields": ["video_title"]
+                        "fields": ["video_title", "director", "starring"]
                     }
                 },
                 "from": (page - 1) * 10,
@@ -143,6 +141,8 @@ class SearchView(View):
                     "post_tags": ['</span>'],
                     "fields": {
                         "video_title": {},
+                        "director": {},
+                        "starring": {}
                     }
                 }
             }
@@ -165,10 +165,10 @@ class SearchView(View):
             else:
                 hit_dict["video_title"] = hit["_source"]["video_title"]
 
-            hit_dict["video_title"] = hit["_source"]["video_title"]
-            hit_dict["director"] = hit["_source"]["director"]
-            hit_dict["url"] = hit["_source"]["url"]
-            hit_dict["label"] = hit["_source"]["label"]
+            hit_dict["video_title"] = handle_null_data("video_title", hit["_source"])
+            hit_dict["director"] = handle_null_data("director", hit["_source"])
+            hit_dict["url"] = handle_null_data("url", hit["_source"])
+            hit_dict["label"] = handle_null_data("label", hit["_source"])
             hit_dict["score"] = hit["_score"]
 
             hit_list.append(hit_dict)
@@ -182,3 +182,10 @@ class SearchView(View):
                                                "count_dytt": count_dytt,
                                                "count_bili": count_bili,
                                                "topn_search": topn_search})
+
+
+def handle_null_data(str, hits):
+    if str in hits.keys():
+        return hits[str]
+    else:
+        return "未爬取到"
