@@ -4,7 +4,7 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 import mysql.connector
-from dytt.models.es_type import DyttType
+from .models.es_type import DyttType
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 

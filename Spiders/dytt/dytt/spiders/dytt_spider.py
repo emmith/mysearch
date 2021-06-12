@@ -3,7 +3,7 @@ import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 import re
-from dytt.items import DyttItem
+from ..items import DyttItem
 import html.parser
 
 

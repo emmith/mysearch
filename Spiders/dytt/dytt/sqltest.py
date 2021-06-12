@@ -1,5 +1,5 @@
 import mysql.connector
-from dytt.items import DyttItem
+from .items import DyttItem
 conn = mysql.connector.connect(user='root',
                                password='emmith',
                                database='test',
