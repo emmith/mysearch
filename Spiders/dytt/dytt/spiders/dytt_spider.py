@@ -32,7 +32,7 @@ class DyttSpider(CrawlSpider):
         # 年代
         items["release_date"] = find_info(r'◎上映日期　(.*?)\(', response_str)
         # 标签
-        items["label"] = find_info(r'◎类　　别　(.*?)<', response_str)
+        items["video_type"] = find_info(r'◎类　　别　(.*?)<', response_str)
         # 主演
         items["starring"] = find_info(r'◎主　　演　([\w\W]*?)◎', response_str, 1)
         # 导演
@@ -41,7 +41,7 @@ class DyttSpider(CrawlSpider):
         items["description"] = find_info(r'◎简　　介([\w\W]*?)<a', response_str, 1)
         # url
 
-        items["url"] = response.url
+        items["video_url"] = response.url
 
         # 直接返回最后数据
         return items

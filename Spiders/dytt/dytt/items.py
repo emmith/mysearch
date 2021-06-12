@@ -9,9 +9,9 @@ class DyttItem(scrapy.Item):
     video_title = scrapy.Field()
     release_date = scrapy.Field()
     country = scrapy.Field()
-    url = scrapy.Field()
+    video_url = scrapy.Field()
     director = scrapy.Field()
     starring = scrapy.Field()
-    label = scrapy.Field()
+    video_type = scrapy.Field()
     description = scrapy.Field()
     pass

@@ -21,7 +21,7 @@ response = client.search(
 )
 redis_cli.set("count_bili", response['hits']['total']['value'])
 response = client.search(
-    index="video_dytt10",
+    index="video_dytt",
     body={
     }
 )
@@ -83,13 +83,13 @@ class SearchSuggest(View):
 
             # TODO:match的方法
             response = client.search(
-                index=['video_dytt10', 'video_bili'],
+                index=['video_dytt', 'video_bili'],
                 body={
                     "_source": "video_title",
                     "query": {
                         "multi_match": {
                             "query": key_words,
-                            "fields": ["video_title", "label"]
+                            "fields": ["video_title", "video_type"]
                         }
                     },
                     "size": 5
@@ -125,7 +125,7 @@ class SearchView(View):
         start_time = datetime.now()
         # 根据关键字查找
         response = client.search(
-            index=['video_dytt10', 'video_bili'],
+            index=['video_dytt', 'video_bili'],
             body={
                 "query": {
                     "multi_match": {
@@ -167,8 +167,8 @@ class SearchView(View):
 
             hit_dict["video_title"] = handle_null_data("video_title", hit["_source"])
             hit_dict["director"] = handle_null_data("director", hit["_source"])
-            hit_dict["url"] = handle_null_data("url", hit["_source"])
-            hit_dict["label"] = handle_null_data("label", hit["_source"])
+            hit_dict["video_url"] = handle_null_data("video_url", hit["_source"])
+            hit_dict["video_type"] = handle_null_data("video_type", hit["_source"])
             hit_dict["score"] = hit["_score"]
 
             hit_list.append(hit_dict)

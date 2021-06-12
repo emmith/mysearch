@@ -14,11 +14,11 @@ class BiliType(Document):
 
     video_title = Text(analyzer = "ik_max_word")
     rank = Integer()
-    total_score = Integer()
+    video_score = Integer()
     director = Keyword()
     play_volume = Text()
-    url = Keyword()
-    label = Keyword()
+    video_url = Keyword()
+    video_type = Keyword()
 
     suggest = Completion()
 

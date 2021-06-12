@@ -64,7 +64,7 @@
                     {% for hit in all_hits %}
                     <div class="resultItem">
                         <div class="itemHead">
-                            <a href="{{ hit.url }}"  target="_blank" class="title">{% autoescape off %}{{ hit.video_title }}{% endautoescape %}</a>
+                            <a href="{{ hit.video_url }}"  target="_blank" class="title">{% autoescape off %}{{ hit.video_title }}{% endautoescape %}</a>
                             <span class="dependValue">
                                 <span class="label">得分：</span>
                                 <span class="value">{{ hit.score }}</span>
@@ -84,7 +84,7 @@
                         <div class="itemFoot">
                             <span class="info">
                                 <label>网站：</label>
-                                <span class="value">www.bilibili.com</span>
+                                <span class="value">{% autoescape off %}{{ hit.video_url }}{% endautoescape %}</span>
                             </span>
                             <span class="info">
                                 <label>标题：</label>
@@ -99,7 +99,7 @@
                             <span class="info">
                                 <label>类别：</label>
                                 <span class="value">
-                                {% autoescape off %}{{ hit.label }}{% endautoescape %}</span>
+                                {% autoescape off %}{{ hit.video_type }}{% endautoescape %}</span>
                             </span>
 {#                            <span>#}
 {#                                <label>类别：</label>#}
@@ -286,6 +286,11 @@
             removeByValue(searchArr, val)
             searchArr.unshift(val)
         }
+    }
+    function domainURI(str){
+    var durl=/http:\/\/([^\/]+)\//i;
+    domain = str.match(durl);
+    return domain[1];
     }
 </script>
 </html>
