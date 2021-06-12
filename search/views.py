@@ -175,13 +175,8 @@ class SearchView(View):
 
         hit_list = []
         for hit in response["hits"]["hits"]:
-            hit_dict = {}
-            if "video_title" in hit["highlight"]:
-                hit_dict["video_title"] = "".join(hit["highlight"]["video_title"])
-            else:
-                hit_dict["video_title"] = hit["_source"]["video_title"]
-
-            hit_dict["video_title"] = handle_null_data("video_title", hit["_source"])
+            hit_dict = dict()
+            hit_dict["video_title"] = to_highlight("video_title", hit, hit_dict)
             hit_dict["director"] = handle_null_data("director", hit["_source"])
             hit_dict["video_url"] = handle_null_data("video_url", hit["_source"])
             hit_dict["video_type"] = handle_null_data("video_type", hit["_source"])
@@ -203,8 +198,15 @@ class SearchView(View):
                                                "topn_search": topn_search})
 
 
-def handle_null_data(str, hits):
-    if str in hits.keys():
-        return hits[str]
+def handle_null_data(field_name, hit):
+    if field_name in hit.keys():
+        return hit[field_name]
     else:
         return "未爬取到"
+
+
+def to_highlight(field_name, hit, hit_dict):
+    if field_name in hit["highlight"]:
+        return "".join(hit["highlight"][field_name])
+    else:
+        return handle_null_data(field_name, hit["_source"])
