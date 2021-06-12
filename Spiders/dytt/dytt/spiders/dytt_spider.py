@@ -8,7 +8,7 @@ import html.parser
 
 
 class DyttSpider(CrawlSpider):
-    name = 'dytt_spider'
+    name = 'video_dytt'
     allowed_domains = ['ygdy8.net']
     start_urls = ['https://www.ygdy8.net/html/gndy/dyzz/']
 

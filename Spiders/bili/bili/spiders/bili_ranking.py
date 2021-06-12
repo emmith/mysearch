@@ -1,6 +1,7 @@
 import scrapy
-from bili.items import BiliItem
+from ..items import BiliItem
 import re
+
 
 class BiliRankingSpider(scrapy.Spider):
     name = 'video_bili'

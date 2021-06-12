@@ -16,13 +16,6 @@
         	<h1 class="title">
             	<div class="logo large"></div>
             </h1>
-            <div class="nav ue-clear">
-            	<ul class="searchList">
-                    <li class="searchItem current" data-type="article">文章</li>
-                    <li class="searchItem" data-type="question">问答</li>
-                    <li class="searchItem" data-type="job">职位</li>
-                </ul>
-            </div>
             <div class="inputArea">
             	<input type="text" class="searchInput" />
                 <input type="button" class="searchButton" onclick="add_search()" />
@@ -39,7 +32,7 @@
             	<p class="history">
                 	<label>热门搜索：</label>
                     {% for search_words in topn_search %}
-                        <a href="/search?q={{ search_words }}">{{ search_words }}</a>
+                        <a href="/search?q={{ search_words }}&s='video_dytt'">{{ search_words }}</a>
                     {% endfor %}
                 </p>
                 <p class="history mysearch">
