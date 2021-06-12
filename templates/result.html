@@ -34,15 +34,29 @@
                         <span class="unit">({{ count_bili }})</span>
                     </li>
                     <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_doubanTop">豆瓣排行榜</a>
-                        <span class="unit">({{ count_doubanTop }})</span>
+                        <a class="name" href="/search?q={{ key_words }}&s=video_doubantop">豆瓣排行榜</a>
+                        <span class="unit">({{ count_doubantop }})</span>
                     </li>
                     <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_doubanShown">豆瓣国内上映</a>
-                        <span class="unit">({{ count_doubanShown }})</span>
+                        <a class="name" href="/search?q={{ key_words }}&s=video_doubanshown">豆瓣国内上映</a>
+                        <span class="unit">({{ count_doubanshown }})</span>
                     </li>
                 </ul>
-
+                <div class="historyArea">
+                    <div class="hotSearch">
+                        <h6>热门搜索</h6>
+                        <ul class="historyList">
+                            {% for search_word in topn_search %}
+                                <li><a href="/search?q={{ search_word }}">{{ search_word }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="mySearch">
+                        <h6>我的搜索</h6>
+                        <ul class="historyList">
+                        </ul>
+                    </div>
+                </div>
 
                 <div class="sideBarShowHide">
                     <a href="javascript:;" class="icon"></a>
@@ -99,21 +113,6 @@
 
             </div>
             <div class="pagination ue-clear"></div>
-            <div class="historyArea">
-                <div class="hotSearch">
-                    <h6>热门搜索</h6>
-                    <ul class="historyList">
-                        {% for search_word in topn_search %}
-                            <li><a href="/search?q={{ search_word }}">{{ search_word }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="mySearch">
-                    <h6>我的搜索</h6>
-                    <ul class="historyList">
-                    </ul>
-                </div>
-            </div>
         </div><!-- End of main -->
     </div><!--End of bd-->
 </div>
@@ -253,10 +252,11 @@
             searchArr.unshift(val)
         }
     }
-    function domainURI(str){
-    var durl=/http:\/\/([^\/]+)\//i;
-    domain = str.match(durl);
-    return domain[1];
+
+    function domainURI(str) {
+        var durl = /http:\/\/([^\/]+)\//i;
+        domain = str.match(durl);
+        return domain[1];
     }
 </script>
 </html>

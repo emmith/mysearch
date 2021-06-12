@@ -28,17 +28,17 @@ response = client.search(
 redis_cli.set("count_dytt", response['hits']['total']['value'])
 
 response = client.search(
-    index="video_doubanTop",
+    index="video_doubantop",
     body={
     }
 )
-redis_cli.set("count_doubanTop", response['hits']['total']['value'])
+redis_cli.set("count_doubantop", response['hits']['total']['value'])
 response = client.search(
-    index="video_doubanShown",
+    index="video_doubanshown",
     body={
     }
 )
-redis_cli.set("count_doubanShown", response['hits']['total']['value'])
+redis_cli.set("count_doubanshown", response['hits']['total']['value'])
 
 
 class IndexView(View):
@@ -96,7 +96,7 @@ class SearchSuggest(View):
 
             # TODO:match的方法
             response = client.search(
-                index=['video_dytt', 'video_bili', 'video_doubanTop', 'video_doubanShown'],
+                index=['video_dytt', 'video_bili', 'video_doubantop', 'video_doubanshown'],
                 body={
                     "_source": "video_title",
                     "query": {
@@ -134,8 +134,8 @@ class SearchView(View):
         # 从redis查看该类数据总量，这边是从上面获取最开始query放入redis的数据总量
         count_bili = redis_cli.get("count_bili").decode('utf8')
         count_dytt = redis_cli.get("count_dytt").decode('utf8')
-        count_doubanTop = redis_cli.get("count_doubanTop").decode('utf8')
-        count_doubanShown = redis_cli.get("count_doubanShown").decode('utf8')
+        count_doubantop = redis_cli.get("count_doubanTop").decode('utf8')
+        count_doubanshown = redis_cli.get("count_doubanShown").decode('utf8')
 
         start_time = datetime.now()
         # 根据关键字查找
@@ -193,8 +193,8 @@ class SearchView(View):
                                                "last_seconds": last_seconds,
                                                "count_dytt": count_dytt,
                                                "count_bili": count_bili,
-                                               "count_doubanTop": count_doubanTop,
-                                               "count_doubanShown": count_doubanShown,
+                                               "count_doubantop": count_doubantop,
+                                               "count_doubanshown": count_doubanshown,
                                                "topn_search": topn_search})
 
 
