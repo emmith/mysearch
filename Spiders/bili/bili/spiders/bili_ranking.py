@@ -18,23 +18,23 @@ class BiliRankingSpider(scrapy.Spider):
 
     def parse(self, response):
 
-        video_type = response.xpath('//div[@class="info"]/a/text()').extract()  # 视频名称
+        video_title = response.xpath('//div[@class="info"]/a/text()').extract()  # 视频名称
         rank = response.xpath('//div[@class="num"]/text()').extract()  # 视频排名
         director = response.xpath('//div[@class="info"]/div[@class="detail"]/a/span/text()').extract()  # 视频作者
-        total_score = response.xpath('//div[@class="info"]/div[@class="pts"]/div/text()').extract()  # 视频得分
+        video_score = response.xpath('//div[@class="info"]/div[@class="pts"]/div/text()').extract()  # 视频得分
         play_volume = response.xpath('//div[@class="info"]/div[@class="detail"]/span[1]/text()').extract()  # 视频播放量
-        url = response.xpath('//div[@class="info"]/a[@class="title"]/@href').extract()
-        label = BiliRankingSpider.dictionary[re.split('/', response.url)[-1]]
-        for n, r, a, s, p, l in zip(video_type, rank, director, total_score, play_volume, url):
+        video_url = response.xpath('//div[@class="info"]/a[@class="title"]/@href').extract()
+        video_type = BiliRankingSpider.dictionary[re.split('/', response.url)[-1]]
+        for n, r, a, s, p, l in zip(video_title, rank, director, video_score, play_volume, video_url):
             items = BiliItem()
 
             items['rank'] = str(r).strip()
             items['video_title'] = str(n).strip()
             items['director'] = str(a).strip()
-            items['total_score'] = str(s).strip()
+            items['video_score'] = str(s).strip()
             items['play_volume'] = str(p).strip()
-            items['url'] = str(l).strip()
-            items['label'] = label
+            items['video_url'] = str(l).strip()
+            items['video_type'] = video_type
             yield items
 
         if len(self.urls) > 0:
