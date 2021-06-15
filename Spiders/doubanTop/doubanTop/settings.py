@@ -1,4 +1,4 @@
-# Scrapy settings for doubanShown project
+# Scrapy settings for doubanTop project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,10 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'doubanShown'
+BOT_NAME = 'doubanTop'
 
-SPIDER_MODULES = ['doubanShown.spiders']
-NEWSPIDER_MODULE = 'doubanShown.spiders'
+SPIDER_MODULES = ['doubanTop.spiders']
+NEWSPIDER_MODULE = 'doubanTop.spiders'
 LOG_LEVEL = 'WARNING'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -46,13 +46,13 @@ DOWNLOAD_DELAY = 1
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'doubanShown.middlewares.DoubanSpiderMiddleware': 543,
+#    'doubanTop.middlewares.DoubanSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'doubanShown.middlewares.DoubanDownloaderMiddleware': 543,
+#    'doubanTop.middlewares.DoubanDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -64,8 +64,8 @@ DOWNLOAD_DELAY = 1
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'doubanShown.pipelines.DoubanPipeline': 300,
-    'doubanShown.pipelines.ElasticsearchPipeline': 300
+    'doubanTop.pipelines.DoubanPipeline': 300,
+    'doubanTop.pipelines.ElasticsearchPipeline': 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
