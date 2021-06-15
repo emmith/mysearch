@@ -35,6 +35,10 @@ scrapy crawl video_doubanShown
 ```
 scrapy crawl video_doubanTop
 ```  
+在Spiders/acfun/acfun下执行  
+```
+scrapy crawl avideo
+```
 
 启动项目命令
 ```base
