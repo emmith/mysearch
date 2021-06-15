@@ -87,7 +87,8 @@
                 cache: false,//禁用缓存（为true时，会缓存请求结果，当再次向同样的url请求时，会直接使用之前请求的返回值）
                 type: 'get',//请求方法，get、post
                 dataType: 'json',//数据的格式
-                url: suggest_url + "?s=" + searchText.attr('data-type'),//向url发送请求
+                url:suggest_url+"?s="+searchText, //向url发送请求
+                {#url: suggest_url + "?s=" + searchText.attr('data-type'),//向url发送请求#}
 
                 async: true,//启用异步（true：当前ajax请求是异步的）
                 success: function (data) {//请求的返回值存在data中
@@ -132,8 +133,8 @@
             //然后再把搜索内容显示出来
             MapSearchArr();
         }
-
-        window.location.href = search_url + '?q=' + val.attr('data-type')
+        {#window.location.href=search_url+'?q='+val+"&s_type="+$(".searchItem.current").attr('data-type')#}
+        window.location.href = search_url + '?q=' + val
 
     }
 

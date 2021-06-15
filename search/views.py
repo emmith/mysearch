@@ -4,41 +4,25 @@ from django.shortcuts import render
 
 import json
 from django.views.generic.base import View
-from search.models import BiliType
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search
 from datetime import datetime
 import redis
 
 client = Elasticsearch(hosts=["127.0.0.1"])
 redis_cli = redis.StrictRedis()
 
-response = client.search(
-    index="video_bili",
-    body={
-    }
-)
-redis_cli.set("count_bili", response['hits']['total']['value'])
-response = client.search(
-    index="video_dytt",
-    body={
-    }
-)
-redis_cli.set("count_dytt", response['hits']['total']['value'])
+# 把video_后缀后面的部分放入下面的list
+# 例如video_bili 则放入 bili
+index_list = ["bili", "dytt", "doubantop", "doubanshown", "meijiuxia", "pianku"]
+for i in index_list:
+    response = client.search(
+        index="video_"+i,
+        body={
+        }
+    )
+    redis_cli.set("count_"+i, response['hits']['total']['value'])
 
-response = client.search(
-    index="video_doubantop",
-    body={
-    }
-)
-redis_cli.set("count_doubantop", response['hits']['total']['value'])
-response = client.search(
-    index="video_doubanshown",
-    body={
-    }
-)
-redis_cli.set("count_doubanshown", response['hits']['total']['value'])
 
 
 class IndexView(View):
@@ -57,55 +41,19 @@ class SearchSuggest(View):
         re_datas = []
 
         if key_words:
-            # suggest官网https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html
-            # TODO:completion的方法 （非dsl）
-            # response = client.search(
-            #     index="video_bili",
-            #     body={
-            #         "suggest": {
-            #             "my_suggest": {
-            #                 "prefix": key_words,
-            #                 "completion": {
-            #                     "field": "suggest",
-            #                     "fuzzy": {
-            #                         "fuzziness": 10
-            #                     },
-            #                     "size": 10
-            #                 }
-            #             }
-            #         }
-            #     }
-            # )
-            # suggestions = response["suggest"]["my_suggest"][0]['options']
-            # for match in suggestions:
-            #     source = match['_source']
-            #     re_datas.append(source["video_title"])
-
-            # TODO:completion的方法 （dsl）
-            # s = suningType.search()
-            # s = s.suggest('my_suggest', key_words, completion = {
-            #     "field": "suggest", "fuzzy": {
-            #         "fuzziness": 2
-            #     },
-            #     "size": 10
-            # })
-            # suggestions = s.execute_suggest()
-            # for match in suggestions.my_suggest[0].options:
-            #     source = match._source
-            #     re_datas.append(source["video_title"])
 
             # TODO:match的方法
             response = client.search(
-                index=['video_dytt', 'video_bili', 'video_doubantop', 'video_doubanshown'],
+                index=["video_"+i for i in index_list],
                 body={
-                    "_source": "video_title",
+                    "_source": ["video_title"],
                     "query": {
                         "multi_match": {
                             "query": key_words,
-                            "fields": ["video_title", "video_type"]
+                            "fields": ["video_title", "video_type", "starring"]
                         }
                     },
-                    "size": 5
+                    "size": 10
                 }
             )
             for hit in response["hits"]["hits"]:
@@ -132,10 +80,9 @@ class SearchView(View):
             page = 1
 
         # 从redis查看该类数据总量，这边是从上面获取最开始query放入redis的数据总量
-        count_bili = redis_cli.get("count_bili").decode('utf8')
-        count_dytt = redis_cli.get("count_dytt").decode('utf8')
-        count_doubantop = redis_cli.get("count_doubanTop").decode('utf8')
-        count_doubanshown = redis_cli.get("count_doubanShown").decode('utf8')
+        dict_count = dict()
+        for i in index_list:
+            dict_count["count_"+i] = redis_cli.get("count_"+i).decode('utf8')
 
         start_time = datetime.now()
         # 根据关键字查找
@@ -176,9 +123,9 @@ class SearchView(View):
         hit_list = []
         for hit in response["hits"]["hits"]:
             hit_dict = dict()
+            hit_dict["video_url"] = handle_null_data("video_url", hit["_source"])
             hit_dict["video_title"] = to_highlight("video_title", hit, hit_dict)
             hit_dict["director"] = handle_null_data("director", hit["_source"])
-            hit_dict["video_url"] = handle_null_data("video_url", hit["_source"])
             hit_dict["video_type"] = handle_null_data("video_type", hit["_source"])
             hit_dict["score"] = hit["_score"]
 
@@ -191,10 +138,7 @@ class SearchView(View):
                                                "total_nums": total_nums,
                                                "page_nums": page_nums,
                                                "last_seconds": last_seconds,
-                                               "count_dytt": count_dytt,
-                                               "count_bili": count_bili,
-                                               "count_doubantop": count_doubantop,
-                                               "count_doubanshown": count_doubanshown,
+                                               "dict_count": dict_count,
                                                "topn_search": topn_search})
 
 

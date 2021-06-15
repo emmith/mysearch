@@ -27,19 +27,27 @@
                 <ul class="subfieldContext">
                     <li>
                         <a class="name" href="/search?q={{ key_words }}&s=video_dytt">电影天堂</a>
-                        <span class="unit">({{ count_dytt }})</span>
+                        <span class="unit">({{ dict_count.count_dytt }})</span>
                     </li>
                     <li>
                         <a class="name" href="/search?q={{ key_words }}&s=video_bili">bilibili</a>
-                        <span class="unit">({{ count_bili }})</span>
+                        <span class="unit">({{ dict_count.count_bili }})</span>
                     </li>
                     <li>
                         <a class="name" href="/search?q={{ key_words }}&s=video_doubantop">豆瓣排行榜</a>
-                        <span class="unit">({{ count_doubantop }})</span>
+                        <span class="unit">({{ dict_count.count_doubantop }})</span>
                     </li>
                     <li>
                         <a class="name" href="/search?q={{ key_words }}&s=video_doubanshown">豆瓣国内上映</a>
-                        <span class="unit">({{ count_doubanshown }})</span>
+                        <span class="unit">({{ dict_count.count_doubanshown }})</span>
+                    </li>
+                    <li>
+                        <a class="name" href="/search?q={{ key_words }}&s=video_meijiuxia">美剧虾</a>
+                        <span class="unit">({{ dict_count.count_meijiuxia }})</span>
+                    </li>
+                    <li>
+                        <a class="name" href="/search?q={{ key_words }}&s=video_pianku">片库</a>
+                        <span class="unit">({{ dict_count.count_pianku }})</span>
                     </li>
                 </ul>
                 <div class="historyArea">
@@ -219,7 +227,7 @@
             MapSearchArr();
         }
 
-        window.location.href = search_url + '?q=' + val.attr('data-type')
+        window.location.href = search_url + '?q=' + val
 
     }
 

@@ -18,23 +18,37 @@
 用pycharm打开项目
 
 在Spiders/bili/bili下执行  
-```scrapy crawl video_bili```  
+```
+scrapy crawl video_bil
+```  
 在Spiders/dytt/dytt下执行   
-```scrapy crawl video_dytt```    
+```
+scrapy crawl video_dytt
+```    
 dytt需要很多时间，建议爬取几百条强制结束
 
 在Spiders/doubanShown/doubanShown下执行  
-```scrapy crawl video_doubanShown```  
+```
+scrapy crawl video_doubanShown
+```  
 在Spiders/doubanTop/doubanTop下执行  
-```scrapy crawl video_doubanTop```  
+```
+scrapy crawl video_doubanTop
+```  
 
-然后运行django项目
+启动项目命令
+```base
+python manage.py runserver --insecure
+```
+***必须加上--insecure,否则在本地不加载staticfiles***  
+如果不使用命令，使用pycharm启动，配置如下图所示
+![](https://res.cloudinary.com/emmith/image/upload/v1623761143/marldown/pycharm-setting_bsoyg0.png)
 
 
-**如需采用更多搜索源，更改```views.py```文件中index的["video_bili","video_dytt"]列表即可，注意新的数据源必须和原来的数据源的字段名一致**
+**如需采用更多搜索源，更改```views.py```文件中index_list列表即可，注意新的数据源必须和原来的数据源的字段名一致**
 
 ## 结果展示
-结果所使用的数据源为dytt，即```views.py```文件中index为["video_dytt"]列表
+结果所使用的数据源为dytt，即```views.py```文件中index_list为["dytt"]列表
 ### 首页
 ![](https://res.cloudinary.com/emmith/image/upload/v1623244073/marldown/%E9%A6%96%E9%A1%B5_l4qoi3.png)
 
