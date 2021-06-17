@@ -15,6 +15,13 @@
             <h1 class="title">
                 <div class="logo large"></div>
             </h1>
+            <div class="nav ue-clear">
+                <ul class="searchList">
+                    <li class="searchItem current" data-type="video_title">电影名</li>
+                    <li class="searchItem" data-type="director">导演</li>
+                    <li class="searchItem" data-type="starring">演员</li>
+                </ul>
+            </div>
             <div class="inputArea">
                 <input type="text" class="searchInput"/>
                 <input type="button" class="searchButton" onclick="add_search()"/>
@@ -87,7 +94,7 @@
                 cache: false,//禁用缓存（为true时，会缓存请求结果，当再次向同样的url请求时，会直接使用之前请求的返回值）
                 type: 'get',//请求方法，get、post
                 dataType: 'json',//数据的格式
-                url:suggest_url+"?s="+searchText, //向url发送请求
+                url: suggest_url + "?s=" + searchText, //向url发送请求
                 {#url: suggest_url + "?s=" + searchText.attr('data-type'),//向url发送请求#}
 
                 async: true,//启用异步（true：当前ajax请求是异步的）
@@ -133,8 +140,7 @@
             //然后再把搜索内容显示出来
             MapSearchArr();
         }
-        {#window.location.href=search_url+'?q='+val+"&s_type="+$(".searchItem.current").attr('data-type')#}
-        window.location.href = search_url + '?q=' + val
+        window.location.href = search_url + '?q=' + val + "&s_type=" + $(".searchItem.current").attr('data-type')
 
     }
 

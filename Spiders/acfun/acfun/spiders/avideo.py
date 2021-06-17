@@ -1,7 +1,7 @@
 import scrapy
 import logging
 from scrapy import Request
-from acfun.items import AcfunItem
+from ..items import AcfunItem
 import random, re
 import copy
 

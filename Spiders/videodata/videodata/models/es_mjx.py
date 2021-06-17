@@ -8,7 +8,7 @@ es = connections.create_connection(hosts=['localhost'])
 class videodataTypeMjx(Document):
     # 设置index名称和document名称
     class Index:
-        name = "video_meijiuxia"
+        name = "video_meijuxia"
         doc_type = "_doc"
         settings = {
           "number_of_shards": 1,

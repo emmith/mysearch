@@ -14,15 +14,14 @@ redis_cli = redis.StrictRedis()
 
 # 把video_后缀后面的部分放入下面的list
 # 例如video_bili 则放入 bili
-index_list = ["bili", "dytt", "doubantop", "doubanshown", "meijiuxia", "pianku"]
+index_list = ["bili", "dytt", "doubantop", "doubanshown", "meijuxia", "pianku", "acfun"]
 for i in index_list:
     response = client.search(
-        index="video_"+i,
+        index="video_" + i,
         body={
         }
     )
-    redis_cli.set("count_"+i, response['hits']['total']['value'])
-
+    redis_cli.set("count_" + i, response['hits']['total']['value'])
 
 
 class IndexView(View):
@@ -44,7 +43,7 @@ class SearchSuggest(View):
 
             # TODO:match的方法
             response = client.search(
-                index=["video_"+i for i in index_list],
+                index=["video_" + i for i in index_list],
                 body={
                     "_source": ["video_title"],
                     "query": {
@@ -67,7 +66,18 @@ class SearchView(View):
         # 获取搜索关键字
         key_words = request.GET.get("q", "")
         # 获取当前选择搜索的范围
-        source = request.GET.get("s", "")
+        searchRange = request.GET.get("s", "")
+        # 默认在这几个库中找
+        source = ["video_dytt", "video_bili", "video_doubanshown", "video_doubantop", "video_meijuxia",
+                  "video_pianku", "video_acfun"]
+        if len(searchRange) != 0:  # 如果参数没有提交，返回一个空的字符串
+            source = [searchRange]
+        # 获取当前选择的搜索依据（按照title还是按照导演）
+        searchType = request.GET.get("s_type", "")
+        # 默认在这几个字段中查找
+        fields = ["video_title", "director", "starring", "video_type"]
+        if len(searchType) != 0:
+            fields = [searchType]
 
         redis_cli.zincrby("search_keywords_set", 1, key_words)  # 该key_words的搜索记录+1
 
@@ -82,18 +92,18 @@ class SearchView(View):
         # 从redis查看该类数据总量，这边是从上面获取最开始query放入redis的数据总量
         dict_count = dict()
         for i in index_list:
-            dict_count["count_"+i] = redis_cli.get("count_"+i).decode('utf8')
+            dict_count["count_" + i] = redis_cli.get("count_" + i).decode('utf8')
 
         start_time = datetime.now()
         # 根据关键字查找
         response = client.search(
-            # 默认从电影天堂上搜索
-            index=[source],
+            # 默认
+            index=source,
             body={
                 "query": {
                     "multi_match": {
                         "query": key_words,
-                        "fields": ["video_title", "director", "starring"]
+                        "fields": fields
                     }
                 },
                 "from": (page - 1) * 10,

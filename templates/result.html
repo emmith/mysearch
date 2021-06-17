@@ -19,6 +19,19 @@
             <input type="button" class="searchButton" onclick="add_search()"/>
         </div>
     </div>
+    <div class="nav">
+        <ul class="searchList">
+            <li class="searchItem" data-type="video_title">
+                <a class="name" href="/search?q={{ key_words }}&s_type=video_title">电影名</a>
+            </li>
+            <li class="searchItem" data-type="director">
+                <a class="name" href="/search?q={{ key_words }}&s_type=director">导演</a>
+            </li>
+            <li class="searchItem" data-type="starring">
+                <a class="name" href="/search?q={{ key_words }}&s_type=starring">演员</a>
+            </li>
+        </ul>
+    </div>
     <div id="bd" class="ue-clear">
         <div id="main">
             <div class="sideBar">
@@ -42,12 +55,16 @@
                         <span class="unit">({{ dict_count.count_doubanshown }})</span>
                     </li>
                     <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_meijiuxia">美剧虾</a>
-                        <span class="unit">({{ dict_count.count_meijiuxia }})</span>
+                        <a class="name" href="/search?q={{ key_words }}&s=video_meijuxia">美剧虾</a>
+                        <span class="unit">({{ dict_count.count_meijuxia }})</span>
                     </li>
                     <li>
                         <a class="name" href="/search?q={{ key_words }}&s=video_pianku">片库</a>
                         <span class="unit">({{ dict_count.count_pianku }})</span>
+                    </li>
+                    <li>
+                        <a class="name" href="/search?q={{ key_words }}&s=video_acfun">AcFun</a>
+                        <span class="unit">({{ dict_count.count_acfun }})</span>
                     </li>
                 </ul>
                 <div class="historyArea">
@@ -134,10 +151,12 @@
 <script type="text/javascript">
     var search_url = "{% url 'search' %}"
 
+    /*
     $('.searchList').on('click', '.searchItem', function () {
         $('.searchList .searchItem').removeClass('current');
         $(this).addClass('current');
     });
+     */
 
 
     function removeByValue(arr, val) {
@@ -227,7 +246,7 @@
             MapSearchArr();
         }
 
-        window.location.href = search_url + '?q=' + val
+        window.location.href = search_url + '?q=' + val + "&s_type=" + $(".searchItem.current").attr('data-type')
 
     }
 
