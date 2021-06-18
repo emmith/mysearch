@@ -16,7 +16,7 @@
         </a>
         <div class="inputArea">
             <input type="text" class="searchInput" value="{{ key_words }}"/>
-            <input type="button" class="searchButton" onclick="add_search()"/>
+            <input type="button" class="searchButton" onclick="add_search()" value="Search"/>
         </div>
     </div>
     <div class="nav">
@@ -105,19 +105,15 @@
                             </span>
                             </div>
                             <div class="itemHead">
-                            <span>
-                                <img src={{ hit.img_url }}>
-                            </span>
+{#                            <span>#}
+{#                                <img src={{ hit.img_url }}>#}
+{#                            </span>#}
+                                {{ hit.description }}
                             </div>
                             <div class="itemFoot">
                             <span class="info">
-                                <label>网站：</label>
-                                <span class="value">{% autoescape off %}{{ hit.video_url }}{% endautoescape %}</span>
-                            </span>
-                                <span class="info">
-                                <label>标题：</label>
-                                <span class="value">
-                                {% autoescape off %}{{ hit.video_title }}{% endautoescape %}</span>
+                                <label>来源：</label>
+                                <span class="value">{% autoescape off %}{{ hit.video_source }}{% endautoescape %}</span>
                             </span>
                                 <span class="info">
                                 <label>作者：</label>

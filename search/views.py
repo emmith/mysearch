@@ -7,6 +7,7 @@ from django.views.generic.base import View
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
 from datetime import datetime
+from urllib.parse import urlparse
 import redis
 
 client = Elasticsearch(hosts=["127.0.0.1"])
@@ -137,6 +138,8 @@ class SearchView(View):
             hit_dict["video_title"] = to_highlight("video_title", hit, hit_dict)
             hit_dict["director"] = handle_null_data("director", hit["_source"])
             hit_dict["video_type"] = handle_null_data("video_type", hit["_source"])
+            hit_dict["video_source"] = urlparse(hit_dict["video_url"]).netloc
+            hit_dict["description"] = handle_null_data("description", hit["_source"])[:100] + "..."
             hit_dict["score"] = hit["_score"]
 
             hit_list.append(hit_dict)
@@ -156,7 +159,7 @@ def handle_null_data(field_name, hit):
     if field_name in hit.keys():
         return hit[field_name]
     else:
-        return "未爬取到"
+        return ""
 
 
 def to_highlight(field_name, hit, hit_dict):

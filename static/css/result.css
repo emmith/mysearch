@@ -42,9 +42,15 @@ html {
     *left: 381px;
     width: 106px;
     height: 38px;
-    background: url(../img/btn_min.png) no-repeat;
+    background: #49b358;
+    -webkit-transition-duration: 0.4s; /* Safari */
     border: none;
     cursor: pointer;
+    font-size: 18px;
+}
+.inputArea .searchButton:hover {
+    background-color: #2f2f2fe6;
+    color: white;
 }
 
 /*返回高级搜索*/
@@ -59,7 +65,7 @@ html {
 
 /*分界区域，导航*/
 .nav {
-    margin-bottom: 24px;
+    margin-bottom: 1px;
     height: 31px;
     background: #f9f9f9;
     border-bottom: 1px solid #e0e0e0;
@@ -209,6 +215,8 @@ html {
 }
 
 .resultArea {
+    background-color: #E1F3DA;
+    border-color: #E1F3DA;
     float: left;
     width: 100%;
 }
@@ -216,7 +224,7 @@ html {
 .resultArea .resultTotal {
     position: relative;
     padding-left: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .resultArea .resultTotal .info {
@@ -235,7 +243,9 @@ html {
 
 /*搜索结果列表区域*/
 .resultArea .resultList {
-    padding-left: 30px;
+    background-color: #EBEBEB;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .resultArea .resultList .resultItem {
@@ -243,7 +253,11 @@ html {
 }
 
 .resultArea .resultList .resultItem {
-    margin-bottom: 30px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #EBEBEB;
+    margin-bottom: 1px;
 }
 
 .resultArea .resultList .itemHead {
