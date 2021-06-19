@@ -16,14 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 # from django.views.generic import TemplateView
-from search.views import SearchSuggest, IndexView, SearchView, Index1View
+from search.views import SearchSuggest, IndexView, SearchView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name="index"),
-
-    url(r'^index-1/$', Index1View.as_view(), name="index-1"),
-
     url(r'^suggest/$', SearchSuggest.as_view(), name="suggest"),
     url(r'^search/$', SearchView.as_view(), name="search"),
 ]

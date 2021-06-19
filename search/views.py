@@ -33,15 +33,6 @@ class IndexView(View):
         # topn_search = []
         return render(request, "index.html", {"topn_search": topn_search})
 
-class Index1View(View):
-    # 首页
-    def get(self, request):
-        topn_search = redis_cli.zrevrangebyscore("search_keywords_set", "+inf", "-inf", start=0, num=5)
-        topn_search = [item.decode('utf8') for item in topn_search]
-        # topn_search = []
-        return render(request, "index-1.html", {"topn_search": topn_search})
-
-
 
 # Create your views here.
 class SearchSuggest(View):
