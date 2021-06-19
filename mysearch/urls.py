@@ -6,7 +6,7 @@ Examples:
 Function views
     1. Add an import:  from my_app import views
     2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
+Class-based viewsstyle-1.css
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
@@ -16,11 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 # from django.views.generic import TemplateView
-from search.views import SearchSuggest, IndexView,SearchView
+from search.views import SearchSuggest, IndexView, SearchView, Index1View
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name="index"),
+
+    url(r'^index-1/$', Index1View.as_view(), name="index-1"),
+
     url(r'^suggest/$', SearchSuggest.as_view(), name="suggest"),
     url(r'^search/$', SearchView.as_view(), name="search"),
 ]

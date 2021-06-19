@@ -33,20 +33,20 @@ html {
     padding-left: 5px;
 }
 
-.searchList .searchItem {
-    float: left;
-    margin-right: 15px;
-    font-size: 14px;
-    padding: 0 0 2px 2px;
-    cursor: pointer;
-    height: 18px;
-}
+/*.searchList .searchItem {*/
+/*    float: left;*/
+/*    margin-right: 15px;*/
+/*    font-size: 14px;*/
+/*    padding: 0 0 2px 2px;*/
+/*    cursor: pointer;*/
+/*    height: 18px;*/
+/*}*/
 
-.searchList .searchItem.current {
-    color: #0080cc;
-    border-bottom: 2px solid #9cc813;
-    font-weight: bold;
-}
+/*.searchList .searchItem.current {*/
+/*    color: #0080cc;*/
+/*    border-bottom: 2px solid #9cc813;*/
+/*    font-weight: bold;*/
+/*}*/
 
 /*input搜索区域*/
 .inputArea {
@@ -54,33 +54,33 @@ html {
     margin-bottom: 65px;
 }
 
-.inputArea .searchInput {
-    border: 1px solid #bfbfbf;
-    padding: 0 15px;
-    outline: none;
-    height: 40px;
-    *height: 39px;
-    *line-height: 40px;
-    width: 520px;
-    background: url(../img/inputbg.png);
-    font-size: 14px;
-}
+/*.inputArea .searchInput {*/
+/*    border: 1px solid #bfbfbf;*/
+/*    padding: 0 15px;*/
+/*    outline: none;*/
+/*    height: 40px;*/
+/*    *height: 39px;*/
+/*    *line-height: 40px;*/
+/*    width: 520px;*/
+/*    background: url(../img/inputbg.png);*/
+/*    font-size: 14px;*/
+/*}*/
 
-.inputArea .searchButton {
-    position: absolute;
-    left: 550px;
-    *left: 552px;
-    *top: 1px;
-    width: 106px;
-    height: 42px;
-    *height: 41px;
-    /*background: url(../img/seachbtn.png) no-repeat;*/
-    background: #49b358;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-}
+/*.inputArea .searchButton {*/
+/*    position: absolute;*/
+/*    left: 550px;*/
+/*    *left: 552px;*/
+/*    *top: 1px;*/
+/*    width: 106px;*/
+/*    height: 42px;*/
+/*    *height: 41px;*/
+/*    !*background: url(../img/seachbtn.png) no-repeat;*!*/
+/*    background: #49b358;*/
+/*    -webkit-transition-duration: 0.4s; !* Safari *!*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    font-size: 18px;*/
+/*}*/
 .inputArea .searchButton:hover {
     background-color: #2f2f2fe6;
     color: white;
@@ -103,6 +103,7 @@ html {
     *top: 43px;
     width: 550px;
     padding: 5px 0;
+    z-index: 1;
     background: #fff;
     border: 1px solid #bfbfbf;
     border-top: none;
@@ -111,6 +112,7 @@ html {
 .inputArea .dataList li {
     padding: 2px 15px;
     font-size: 14px;
+    float: inherit;
 }
 
 .inputArea .dataList li:hover {
