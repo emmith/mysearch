@@ -111,7 +111,7 @@ a:hover {
     width: 160px;
     height: 47px;
     padding: 0 5px;
-    background: url(../img/logo1.png) no-repeat center center #fff;
+    background: url(../img/logo1.png) no-repeat center center;
 }
 
 /*choose样式*/
@@ -136,71 +136,71 @@ a:hover {
     margin-right: -16px;
 }
 
-/*====================================
-  分页信息（表格依赖样式）
-  ===================================*/
-.pagination {
-    font-size: 14px;
-}
+/*!*====================================*/
+/*  分页信息（表格依赖样式）*/
+/*  ===================================*!*/
+/*.pagination {*/
+/*    font-size: 14px;*/
+/*}*/
 
-.pagination a {
-    text-decoration: none;
-    border: solid 1px;
-}
+/*.pagination a {*/
+/*    text-decoration: none;*/
+/*    border: solid 1px;*/
+/*}*/
 
-.pagination .pxofy {
-    float: left;
-    margin-left: 5px;
-    height: 25px;
-    *padding-top: 1px;
-}
+/*.pagination .pxofy {*/
+/*    float: left;*/
+/*    margin-left: 5px;*/
+/*    height: 25px;*/
+/*    *padding-top: 1px;*/
+/*}*/
 
-.pagination a, .pagination span {
-    display: block;
-    float: left;
-    height: 18px;
-    line-height: 18px;
-    padding: 0 6px;
-    margin-right: 5px;
-    font-family: Arial, Helvetica, sans-serif !important;
-}
+/*.pagination a, .pagination span {*/
+/*    display: block;*/
+/*    float: left;*/
+/*    height: 18px;*/
+/*    line-height: 18px;*/
+/*    padding: 0 6px;*/
+/*    margin-right: 5px;*/
+/*    font-family: Arial, Helvetica, sans-serif !important;*/
+/*}*/
 
-.pagination .current {
-    cursor: default;
-    border: solid 1px;
-}
+/*.pagination .current {*/
+/*    cursor: default;*/
+/*    border: solid 1px;*/
+/*}*/
 
-.pagination .prev, .pagination .next {
-    *line-height: 22px;
-}
+/*.pagination .prev, .pagination .next {*/
+/*    *line-height: 22px;*/
+/*}*/
 
-/*分页样式*/
-.pagination a {
-    color: #032F54;
-    border-color: #8EB2D2;
-}
+/*!*分页样式*!*/
+/*.pagination a {*/
+/*    color: #032F54;*/
+/*    border-color: #8EB2D2;*/
+/*}*/
 
-.pagination a:hover {
-    color: #023054;
-    border-color: #8EB2D2;
-    background: #B8DFFB;
-}
+/*.pagination a:hover {*/
+/*    color: #023054;*/
+/*    border-color: #8EB2D2;*/
+/*    background: #B8DFFB;*/
+/*}*/
 
-.pagination .current {
-    color: #fff;
-    border-color: #5c9bc4;
-    background: #89B8D8;
-}
+/*.pagination .current {*/
+/*    color: #fff;*/
+/*    border-color: #5c9bc4;*/
+/*    background: #89B8D8;*/
+/*}*/
 
-.pagination .current.prev, .pagination .current.next {
-    color: #B9B9B9;
-    border-color: #D3D3D3;
-    background: #fff;
-}
+/*.pagination .current.prev, .pagination .current.next {*/
+/*    color: #B9B9B9;*/
+/*    border-color: #D3D3D3;*/
+/*    background: #fff;*/
+/*}*/
 
-.pagination .pxofy {
-    color: #023054;
-}
+/*.pagination .pxofy {*/
+/*    color: #023054;*/
+/*}*/
 
 #foot {
     height: 32px;

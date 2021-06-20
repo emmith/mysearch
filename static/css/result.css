@@ -101,6 +101,11 @@ html {
     *line-height: 26px;
 }
 
+.logo_div {
+    margin: 0;
+    padding: 0 0 0 2em;
+}
+
 #container.sideBarHide .nav {
     padding-left: 35px;
 }
@@ -190,6 +195,17 @@ html {
     background-position: 0 -31px;
 }
 
+.side {
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #043c4e;
+    margin: 2em;
+}
+
+.side li {
+    margin-top: .5em;
+}
+
 /*左侧收起样式*/
 #main.sideBarHide .sideBar {
     margin-left: -191px;
@@ -216,10 +232,7 @@ html {
 }
 
 .resultArea {
-    background-color: #E1F3DA;
-    border-color: #E1F3DA;
-    float: left;
-    width: 100%;
+    display: grid;
 }
 
 .resultArea .resultTotal {
@@ -244,9 +257,9 @@ html {
 
 /*搜索结果列表区域*/
 .resultArea .resultList {
-    background-color: #EBEBEB;
     margin-right: 10px;
     margin-left: 10px;
+    padding-left: 20px;
 }
 
 .resultArea .resultList .resultItem {
@@ -255,10 +268,7 @@ html {
 
 .resultArea .resultList .resultItem {
     background-color: white;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #EBEBEB;
-    margin-bottom: 1px;
+    margin-bottom: 10px;
 }
 
 .resultArea .resultList .itemHead {

@@ -1,149 +1,185 @@
-<!DOCTYPE html >
+<!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
 {% load static %}
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>python-lcv-search搜索引擎</title>
+    <title>搜索结果</title>
+
     <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style-1.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'css/result.css' %}" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
-<div id="container">
-    <div id="hd" class="ue-clear">
+<div class="header">
+    <div class="logo_div">
         <a href="/">
             <div class="logo"></div>
         </a>
-        <div class="inputArea">
-            <input type="text" class="searchInput" value="{{ key_words }}"/>
-            <input type="button" class="searchButton" onclick="add_search()" value="Search"/>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="stock_box">
+    <div class="col-md-2 stock_left">
+        <div class="w_sidebar">
+            <section class="sky-form">
+                <h4>视频来源</h4>
+                <div class="col col-4 side">
+                    <ul>
+                        <li>
+                            <a class="name" href="/search?q={{ key_words }}&s=video_dytt">电影天堂</a>
+                            <span class="unit">({{ dict_count.count_dytt }})</span>
+                        </li>
+                        <li>
+                            <a class="name" href="/search?q={{ key_words }}&s=video_bili">bilibili</a>
+                            <span class="unit">({{ dict_count.count_bili }})</span>
+                        </li>
+                        <li>
+                            <a class="name" href="/search?q={{ key_words }}&s=video_doubantop">豆瓣排行榜</a>
+                            <span class="unit">({{ dict_count.count_doubantop }})</span>
+                        </li>
+                        <li>
+                            <a class="name" href="/search?q={{ key_words }}&s=video_doubanshown">豆瓣国内上映</a>
+                            <span class="unit">({{ dict_count.count_doubanshown }})</span>
+                        </li>
+                        <li>
+                            <a class="name" href="/search?q={{ key_words }}&s=video_meijuxia">美剧虾</a>
+                            <span class="unit">({{ dict_count.count_meijuxia }})</span>
+                        </li>
+                        <li>
+                            <a class="name" href="/search?q={{ key_words }}&s=video_pianku">片库</a>
+                            <span class="unit">({{ dict_count.count_pianku }})</span>
+                        </li>
+                        <li>
+                            <a class="name" href="/search?q={{ key_words }}&s=video_acfun">AcFun</a>
+                            <span class="unit">({{ dict_count.count_acfun }})</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="sky-form">
+                <h4>热门搜索</h4>
+                <div class="col col-4 side">
+                    <ul>
+                        {% for search_word in topn_search %}
+                            <li><a href="/search?q={{ search_word }}">{{ search_word }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <section class="sky-form">
+                <h4>我的搜索</h4>
+                <div class="col col-4 side">
+                    <ul class="historyList">
+                    </ul>
+                </div>
+            </section>
         </div>
     </div>
-    <div class="nav">
-        <ul class="searchList">
-            <li class="searchItem" data-type="video_title">
-                <a class="name" href="/search?q={{ key_words }}&s_type=video_title">电影名</a>
+    <div class="col-md-10 sap_tabs">
+        <ul class="resp-tabs-list">
+            <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>分类搜索：</span></li>
+            <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><a class="name"
+                                                                               href="/search?q={{ key_words }}&s_type=video_title"><span>片名</span></a>
             </li>
-            <li class="searchItem" data-type="director">
-                <a class="name" href="/search?q={{ key_words }}&s_type=director">导演</a>
+            <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><a class="name"
+                                                                               href="/search?q={{ key_words }}&s_type=director"><span>导演</span></a>
             </li>
-            <li class="searchItem" data-type="starring">
-                <a class="name" href="/search?q={{ key_words }}&s_type=starring">演员</a>
+            <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><a class="name"
+                                                                               href="/search?q={{ key_words }}&s_type=starring"><span>演员</span></a>
             </li>
+            <div class="clearfix"></div>
         </ul>
-    </div>
-    <div id="bd" class="ue-clear">
-        <div id="main">
-            <div class="sideBar">
-
-                <div class="subfield">网站</div>
-                <ul class="subfieldContext">
-                    <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_dytt">电影天堂</a>
-                        <span class="unit">({{ dict_count.count_dytt }})</span>
-                    </li>
-                    <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_bili">bilibili</a>
-                        <span class="unit">({{ dict_count.count_bili }})</span>
-                    </li>
-                    <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_doubantop">豆瓣排行榜</a>
-                        <span class="unit">({{ dict_count.count_doubantop }})</span>
-                    </li>
-                    <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_doubanshown">豆瓣国内上映</a>
-                        <span class="unit">({{ dict_count.count_doubanshown }})</span>
-                    </li>
-                    <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_meijuxia">美剧虾</a>
-                        <span class="unit">({{ dict_count.count_meijuxia }})</span>
-                    </li>
-                    <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_pianku">片库</a>
-                        <span class="unit">({{ dict_count.count_pianku }})</span>
-                    </li>
-                    <li>
-                        <a class="name" href="/search?q={{ key_words }}&s=video_acfun">AcFun</a>
-                        <span class="unit">({{ dict_count.count_acfun }})</span>
-                    </li>
-                </ul>
-                <div class="historyArea">
-                    <div class="hotSearch">
-                        <h6>热门搜索</h6>
-                        <ul class="historyList">
-                            {% for search_word in topn_search %}
-                                <li><a href="/search?q={{ search_word }}">{{ search_word }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="mySearch">
-                        <h6>我的搜索</h6>
-                        <ul class="historyList">
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="sideBarShowHide">
-                    <a href="javascript:;" class="icon"></a>
-                </div>
-            </div>
-            <div class="resultArea">
-                <p class="resultTotal">
+        <div class="resultArea">
+            <p class="resultTotal">
                     <span class="info">找到约&nbsp;<span class="totalResult">{{ total_nums }}</span>&nbsp;条结果(用时<span
                             class="time">{{ last_seconds }}</span>秒)，共约<span
                             class="totalPage">{{ page_nums }}</span>页</span>
-                </p>
-                <div class="resultList" style="float: left">
-                    {% for hit in all_hits %}
-                        <div class="resultItem">
-                            <div class="itemHead">
-                                <a href="{{ hit.video_url }}" target="_blank" class="title">
-                                    {% autoescape off %}{{ hit.video_title }}{% endautoescape %}</a>
-                                <span class="dependValue">
+            </p>
+            <div class="resultList" style="float: left">
+                {% for hit in all_hits %}
+                    <div class="resultItem">
+                        <div class="itemHead">
+                            <a href="{{ hit.video_url }}" target="_blank" class="title">
+                                {% autoescape off %}{{ hit.video_title }}{% endautoescape %}</a>
+                            <span class="dependValue">
                                 <span class="label">得分：</span>
                                 <span class="value">{{ hit.score }}</span>
                             </span>
-                            </div>
-                            <div class="itemHead">
-{#                            <span>#}
-{#                                <img src={{ hit.img_url }}>#}
-{#                            </span>#}
-                                {{ hit.description }}
-                            </div>
-                            <div class="itemFoot">
+                        </div>
+                        <div class="itemHead">
+                            {#                            <span>#}
+                            {#                                <img src={{ hit.img_url }}>#}
+                            {#                            </span>#}
+                            {{ hit.description }}
+                        </div>
+                        <div class="itemFoot">
                             <span class="info">
                                 <label>来源：</label>
                                 <span class="value">{% autoescape off %}{{ hit.video_source }}{% endautoescape %}</span>
                             </span>
-                                <span class="info">
+                            <span class="info">
                                 <label>作者：</label>
                                 <span class="value">
                                 {% autoescape off %}{{ hit.director }}{% endautoescape %}</span>
                             </span>
-                                <span class="info">
+                            <span class="info">
                                 <label>类别：</label>
                                 <span class="value">
                                 {% autoescape off %}{{ hit.video_type }}{% endautoescape %}</span>
                             </span>
-                            </div>
                         </div>
-                    {% endfor %}
-                </div>
-                <br>
-                <!-- 分页 -->
-
+                    </div>
+                {% endfor %}
             </div>
-            <div class="pagination ue-clear"></div>
-        </div><!-- End of main -->
-    </div><!--End of bd-->
+            <br>
+            <!-- 分页 -->
+
+        </div>
+        <div class="pagination ue-clear"></div>
+    </div>
+    <div class="clearfix"></div>
 </div>
-
-
-<div id="foot">Copyright &copy;projectsedu.com 版权所有 E-mail:admin@projectsedu.com</div>
+<div class="grid_3">
+    <div class="container">
+        <ul id="footer-links">
+            <li><a href="#">电影天堂</a></li>
+            <li><a href="#">Bilibili</a></li>
+            <li><a href="#">豆瓣</a></li>
+            <li><a href="#">美剧虾</a></li>
+            <li><a href="support.html">片库</a></li>
+            <li><a href="about.html">Acfun</a></li>
+        </ul>
+        <p>Copyright &copy; 2021.VSearch All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/"></a>
+        </p>
+    </div>
+</div>
 </body>
-<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/global.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jeasyResponsiveTabs.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/pagination.js' %}"></script>
+<script src="{% static 'js/menu_jquery.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true   // 100% fit in a container
+        });
+    });
+</script>
+<script type="application/x-javascript">
+    addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+</script>
 <script type="text/javascript">
     var search_url = "{% url 'search' %}"
 
@@ -257,7 +293,7 @@
         for (var i = 0; i < arrLen; i++) {
             tmpHtml += '<li><a href="/search?q=' + searchArr[i] + '">' + searchArr[i] + '</a></li>'
         }
-        $(".mySearch .historyList").append(tmpHtml);
+        $(".historyList").append(tmpHtml);
     }
 
     //去重
